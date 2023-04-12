@@ -22,11 +22,22 @@ public class Bookmark {
   private Long id;
 
   @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "event_id")
+  private Event event;
+
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "member_id")
   private Member member;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "artist_id")
-  private Artist artist;
+
+  public void setEvent(Event event) {
+    this.event = event;
+    event.getBookmarks().add(this);
+  }
+  public void setMember(Member member) {
+    this.member = member;
+    member.getBookmarks().add(this);
+  }
+
 
 }

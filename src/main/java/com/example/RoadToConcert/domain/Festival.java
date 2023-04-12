@@ -1,5 +1,6 @@
 package com.example.RoadToConcert.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,11 +9,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 
 @Entity
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class Festival {
 
   @Id
@@ -23,9 +26,14 @@ public class Festival {
   private String name;
 
   @OneToMany(mappedBy = "festival")
-  private List<Artist> artistList;
+  private List<Artist> artistList = new ArrayList<>();
   private String Description;
   private String getTicket;
+
+
+
+
+
 
 
 

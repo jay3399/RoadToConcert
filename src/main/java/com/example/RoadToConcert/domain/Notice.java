@@ -12,11 +12,14 @@ import lombok.RequiredArgsConstructor;
 @Entity
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class Notice {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "notice_id")
   private Long id;
 
+  private String contents;
+  private Long countVisit;
 
 
 

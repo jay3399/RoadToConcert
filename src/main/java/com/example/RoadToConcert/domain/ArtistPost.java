@@ -26,11 +26,19 @@ public class ArtistPost {
   @Column(name = "artistpost_id")
   private Long id;
   private String content;
-  @OneToMany
+  @OneToMany(mappedBy ="artistPost")
   private List<File> files = new ArrayList<>();
+
   @JoinColumn(name = "artist_id" )
   @ManyToOne(fetch = FetchType.LAZY)
   private Artist artist;
+
+  public void setArtist(Artist artist) {
+    this.artist = artist;
+    artist.getArtistPostList().add(this);
+  }
+
+
 
 
 
