@@ -1,6 +1,7 @@
 package com.example.RoadToConcert.domain;
 
 
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
@@ -18,6 +19,10 @@ public class Member {
     private String lastName;
     private String email;
     private String location;
+
+
+    @OneToMany(mappedBy = "")
+    private List<Bookmark> bookmarks;
 
 
 

@@ -2,6 +2,7 @@ package com.example.RoadToConcert.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,9 +23,9 @@ public class ArtistPost {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "artistpost_id")
   private Long id;
   private String content;
-
   @OneToMany
   private List<File> files = new ArrayList<>();
   @JoinColumn(name = "artist_id" )

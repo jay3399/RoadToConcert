@@ -22,11 +22,9 @@ public class Festival {
 
   private String name;
 
-  @OneToMany
+  @OneToMany(mappedBy = "festival")
   private List<Artist> artistList;
-
   private String Description;
-
   private String getTicket;
 
 
