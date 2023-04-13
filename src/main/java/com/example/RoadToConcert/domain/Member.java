@@ -4,6 +4,7 @@ package com.example.RoadToConcert.domain;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -12,15 +13,19 @@ import javax.persistence.*;
 @Entity
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Builder
 public class Member {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "member_id")
   private Long id;
+  @Column(unique = true, nullable = false)
+  private String oAuthId;
   private Long userId;
-  private String firstName;
-  private String lastName;
+  private String name;
+
+  @Column(unique = true)
   private String email;
   private String location;
 
@@ -32,6 +37,23 @@ public class Member {
 
   @OneToMany(mappedBy = "member")
   private List<Review> reviews = new ArrayList<>();
+
+
+  @Enumerated(value = EnumType.STRING)
+  private Role role;
+
+  @Enumerated(value = EnumType.STRING)
+  private AuthProvider authProvider;
+
+
+  public Member update(Oauth2UserInfo oauth2UserInfo) {
+    this.name = oauth2UserInfo.getName();
+    this.oAuthId = oauth2UserInfo.getOauth2Id();
+
+    return this;
+  }
+
+
 
 
 }
