@@ -1,28 +1,33 @@
 package com.example.RoadToConcert;
 
+import antlr.Token;
+import com.example.RoadToConcert.repo.CookieRequestRepository;
 import com.example.RoadToConcert.service.CustomOAuthMemberService;
+import com.example.RoadToConcert.service.JwtAuthenticationFilter;
+import com.example.RoadToConcert.service.OAuth2FailureHandler;
+import com.example.RoadToConcert.service.OAuth2SuccessHandler;
+import com.example.RoadToConcert.service.TokenProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.logout.LogoutFilter;
-import org.springframework.security.web.session.HttpSessionEventPublisher;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
 
   public final CustomOAuthMemberService customOAuthMemberService;
+
+  private final CookieRequestRepository requestRepository;
+  private final OAuth2SuccessHandler oAuth2SuccessHandler;
+  private final OAuth2FailureHandler oAuth2FailureHandler;
+
+  private final TokenProvider provider;
 
 
   @Bean
@@ -43,21 +48,22 @@ public class SecurityConfig {
 
     httpSecurity.oauth2Login()
         .authorizationEndpoint().baseUri("/oauth2/authorize")
-//        .authorizationRequestRepository()
+        .authorizationRequestRepository(requestRepository)
         .and()
         .redirectionEndpoint().baseUri("/oauth2/callback/*")
         .and()
-        .userInfoEndpoint().userService(customOAuthMemberService);
-//        .and()
-//        .successHandler()
-//        .failureHandler();
+        .userInfoEndpoint().userService(customOAuthMemberService)
+        .and()
+        .successHandler(oAuth2SuccessHandler)
+        .failureHandler(oAuth2FailureHandler);
+
 
     httpSecurity.logout()
         .clearAuthentication(true)
         .deleteCookies("JESSIONID");
 
-
-//    httpSecurity.addFilterBefore()
+    httpSecurity.addFilterBefore(new JwtAuthenticationFilter(provider),
+        UsernamePasswordAuthenticationFilter.class);
 
     return httpSecurity.build();
   }

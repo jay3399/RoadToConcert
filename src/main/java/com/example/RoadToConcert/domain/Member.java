@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Builder
 public class Member {

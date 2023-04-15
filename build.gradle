@@ -24,7 +24,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'org.springframework.boot:spring-boot-starter-quartz'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+//	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -42,7 +42,24 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	implementation 'it.ozimov:embedded-redis:0.7.2'
 	implementation 'org.springframework.boot:spring-boot-starter-cache'
-	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+
+
+//
+//	implementation "io.jsonwebtoken:jjwt-api:0.11.2"
+//	runtimeOnly "io.jsonwebtoken:jjwt-jackson:0.11.2",
+//			"io.jsonwebtoken:jjwt-impl:0.11.2",
+//			"org.bouncycastle:bcprov-jdk15on:1.68"
+
+
+
+//	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+
+	implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
+
+
+
 }
 
 tasks.named('test') {

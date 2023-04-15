@@ -5,6 +5,7 @@ import com.example.RoadToConcert.domain.Member;
 import com.example.RoadToConcert.domain.OAuth2UserInfoFrom;
 import com.example.RoadToConcert.domain.Oauth2UserInfo;
 import com.example.RoadToConcert.domain.Role;
+import com.example.RoadToConcert.domain.UserPrincipal;
 import com.example.RoadToConcert.repo.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -30,7 +31,7 @@ public class CustomOAuthMemberService implements OAuth2UserService<OAuth2UserReq
 
     OAuth2User oAuth2User = defaultOAuth2UserService.loadUser(userRequest);
 
-    return null;
+    return getOAuth2User(userRequest, oAuth2User);
 
   }
 
@@ -58,7 +59,7 @@ public class CustomOAuthMemberService implements OAuth2UserService<OAuth2UserReq
       member = registerUser(authProvider, oAuth2Info);
     }
 
-    return null;
+    return UserPrincipal.create(member, oAuth2Info.getAttributes());
 
   }
   private Member registerUser(AuthProvider authProvider, Oauth2UserInfo oAuth2UserInfo) {
