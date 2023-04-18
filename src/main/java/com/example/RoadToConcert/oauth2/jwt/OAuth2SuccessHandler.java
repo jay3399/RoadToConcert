@@ -1,10 +1,10 @@
-package com.example.RoadToConcert.service;
+package com.example.RoadToConcert.oauth2.jwt;
 
 
-import static com.example.RoadToConcert.repo.CookieRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
+import static com.example.RoadToConcert.oauth2.CookieRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
 
-import com.example.RoadToConcert.domain.MemberResponseDto;
-import com.example.RoadToConcert.repo.CookieRequestRepository;
+import com.example.RoadToConcert.oauth2.CookieRequestRepository;
+import com.example.RoadToConcert.oauth2.CookieUtils;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Optional;
@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -25,9 +26,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
 
+  @Value("${app.oauth2.authorizedRedirectUri}")
   private String redirectUri;
   public final TokenProvider provider;
-
   private final CookieRequestRepository cookieRequestRepository;
 
 

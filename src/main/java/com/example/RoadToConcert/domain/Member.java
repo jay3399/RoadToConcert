@@ -1,12 +1,12 @@
 package com.example.RoadToConcert.domain;
 
 
+import com.example.RoadToConcert.oauth2.AuthProvider;
+import com.example.RoadToConcert.oauth2.Oauth2UserInfo;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 

@@ -1,12 +1,11 @@
 package com.example.RoadToConcert;
 
-import antlr.Token;
-import com.example.RoadToConcert.repo.CookieRequestRepository;
-import com.example.RoadToConcert.service.CustomOAuthMemberService;
-import com.example.RoadToConcert.service.JwtAuthenticationFilter;
-import com.example.RoadToConcert.service.OAuth2FailureHandler;
-import com.example.RoadToConcert.service.OAuth2SuccessHandler;
-import com.example.RoadToConcert.service.TokenProvider;
+import com.example.RoadToConcert.oauth2.CookieRequestRepository;
+import com.example.RoadToConcert.oauth2.CustomOAuthMemberService;
+import com.example.RoadToConcert.oauth2.jwt.JwtAuthenticationFilter;
+import com.example.RoadToConcert.oauth2.jwt.OAuth2FailureHandler;
+import com.example.RoadToConcert.oauth2.jwt.OAuth2SuccessHandler;
+import com.example.RoadToConcert.oauth2.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.example.RoadToConcert.domain;
+package com.example.RoadToConcert.oauth2;
 
 import java.util.Map;
 

@@ -1,10 +1,10 @@
-package com.example.RoadToConcert.service;
+package com.example.RoadToConcert.oauth2.jwt;
 
-import static com.example.RoadToConcert.repo.CookieRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
+import static com.example.RoadToConcert.oauth2.CookieRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
 
-import com.example.RoadToConcert.repo.CookieRequestRepository;
+import com.example.RoadToConcert.oauth2.CookieRequestRepository;
+import com.example.RoadToConcert.oauth2.CookieUtils;
 import java.io.IOException;
-import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

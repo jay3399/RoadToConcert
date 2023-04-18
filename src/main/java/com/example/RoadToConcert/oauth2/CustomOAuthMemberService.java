@@ -1,11 +1,7 @@
-package com.example.RoadToConcert.service;
+package com.example.RoadToConcert.oauth2;
 
-import com.example.RoadToConcert.domain.AuthProvider;
 import com.example.RoadToConcert.domain.Member;
-import com.example.RoadToConcert.domain.OAuth2UserInfoFrom;
-import com.example.RoadToConcert.domain.Oauth2UserInfo;
 import com.example.RoadToConcert.domain.Role;
-import com.example.RoadToConcert.domain.UserPrincipal;
 import com.example.RoadToConcert.repo.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -51,6 +47,7 @@ public class CustomOAuthMemberService implements OAuth2UserService<OAuth2UserReq
 
     //이미 멤버가 존재
     if (member != null) {
+      // 하지만 그 멤버의 소셜정보와 , 제공받은 소셜정보의 제공자가 다를경우
       if (!member.getAuthProvider().equals(authProvider)) {
         throw new RuntimeException("Email already signed up");
       }

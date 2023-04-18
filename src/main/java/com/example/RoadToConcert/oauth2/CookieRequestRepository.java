@@ -1,6 +1,5 @@
-package com.example.RoadToConcert.repo;
+package com.example.RoadToConcert.oauth2;
 
-import com.example.RoadToConcert.service.CookieUtils;
 import com.nimbusds.oauth2.sdk.util.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,7 +37,8 @@ public class CookieRequestRepository implements AuthorizationRequestRepository {
     CookieUtils.addCookie(response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME,
         CookieUtils.serialize(authorizationRequest), COOKIE_EXPIRE_SECONDS);
 
-    String redirectUriAfterLogin = request.getParameter(REDIRECT_URI_PARAM_COOKIE_NAME);
+    String parameter = request.getParameter(REDIRECT_URI_PARAM_COOKIE_NAME);
+    String redirectUriAfterLogin = parameter;
 
     if (StringUtils.isNotBlank(redirectUriAfterLogin)) {
       CookieUtils.addCookie(response, REDIRECT_URI_PARAM_COOKIE_NAME, redirectUriAfterLogin,
@@ -48,15 +48,12 @@ public class CookieRequestRepository implements AuthorizationRequestRepository {
   }
 
 
-
-
   @Override
   public OAuth2AuthorizationRequest removeAuthorizationRequest(HttpServletRequest request) {
     return this.loadAuthorizationRequest(request);
   }
 
-  public void removeAuthorizationRequestCookies(HttpServletRequest request,
-      HttpServletResponse response) {
+  public void removeAuthorizationRequestCookies(HttpServletRequest request, HttpServletResponse response) {
     CookieUtils.deleteCookie(request, response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME);
     CookieUtils.deleteCookie(request, response, REDIRECT_URI_PARAM_COOKIE_NAME);
   }

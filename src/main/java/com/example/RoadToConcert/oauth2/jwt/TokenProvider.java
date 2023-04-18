@@ -1,19 +1,15 @@
-package com.example.RoadToConcert.service;
+package com.example.RoadToConcert.oauth2.jwt;
 
 
-import com.example.RoadToConcert.domain.MemberResponseDto;
+import com.example.RoadToConcert.oauth2.ExpireTime;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
-import java.security.Key;
 import java.util.Arrays;
 import java.util.Base64;
-import java.util.Base64.Decoder;
 import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
@@ -47,7 +43,6 @@ public class TokenProvider {
   public TokenProvider(@Value("${oauth.jwt.secret}") String secretKey) {
 //    byte[] decode = Decoders.BASE64.decode(secretKey);
 //    this.key = Keys.hmacShaKeyFor(decode);
-
     this.key = Base64.getEncoder().encodeToString(secretKey.getBytes());
 
   }
@@ -93,7 +88,7 @@ public class TokenProvider {
   }
 
   //토큰 복호화
-
+  // Access Token을 검사하고 얻은 정보로 Authentication 객체 생성
   public Authentication getAuthentication(String accessToken) {
 
     Claims claims = parseClaims(accessToken);
@@ -140,7 +135,7 @@ public class TokenProvider {
     return false;
   }
 
-
+  // Access Token 만료시 갱신때 사용할 정보를 얻기 위해 Claim 리턴
   private Claims parseClaims(String accessToken) {
     try {
       return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody();

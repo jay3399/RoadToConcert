@@ -1,5 +1,6 @@
-package com.example.RoadToConcert.domain;
+package com.example.RoadToConcert.oauth2;
 
+import com.example.RoadToConcert.oauth2.Oauth2UserInfo;
 import java.util.Map;
 
 public class KakaoOauth extends Oauth2UserInfo {

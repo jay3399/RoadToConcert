@@ -1,4 +1,4 @@
-package com.example.RoadToConcert.service;
+package com.example.RoadToConcert.oauth2;
 
 public class ExpireTime {
 
