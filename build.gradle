@@ -19,6 +19,7 @@ repositories {
 }
 
 dependencies {
+
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
@@ -29,6 +30,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -43,6 +45,18 @@ dependencies {
 	implementation 'it.ozimov:embedded-redis:0.7.2'
 	implementation 'org.springframework.boot:spring-boot-starter-cache'
 
+	implementation 'org.springframework.cloud:spring-cloud-starter-config:3.1.6'
+
+	implementation 'org.springframework.boot:spring-boot-stater-actuator'
+
+
+
+
+
+
+//	implementation 'org.springframework.cloud:spring-cloud-config-server:3.1.6'
+//	implementation 'org.springframework.cloud:spring-cloud-starter-config:4.0.1'
+
 
 //
 //	implementation "io.jsonwebtoken:jjwt-api:0.11.2"
@@ -51,13 +65,11 @@ dependencies {
 //			"org.bouncycastle:bcprov-jdk15on:1.68"
 
 
-
 //	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 
 	implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
 	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
 	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
-
 
 
 }

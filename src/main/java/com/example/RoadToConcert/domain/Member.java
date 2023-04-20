@@ -5,14 +5,19 @@ import com.example.RoadToConcert.oauth2.AuthProvider;
 import com.example.RoadToConcert.oauth2.Oauth2UserInfo;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Member {
 
   @Id
@@ -43,6 +48,7 @@ public class Member {
 
   @Enumerated(value = EnumType.STRING)
   private AuthProvider authProvider;
+
 
 
   public Member update(Oauth2UserInfo oauth2UserInfo) {

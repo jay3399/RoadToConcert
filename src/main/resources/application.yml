@@ -7,7 +7,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     properties:
       hibernate:
         format_sql: true
@@ -42,7 +42,25 @@ spring:
               - email
               - profile
             redirect-uri: http://localhost:8080/oauth2/callback/google
-#          kakao:
+
+
+  #          kakao:
+  profiles:
+    active: dev
+  config:
+    import: optional:configserver:http://localhost:8088
+
+#management:
+#  endpoint:
+#    web:
+#      exposure:
+#        include: "* , refresh"
+
+
+
+
+#    use-legacy-processing: true
+
 #            client-id:
 #            client-secret:
 #            scope:
@@ -56,12 +74,12 @@ spring:
 #            token-uri: https://kauth.kakao.com/oauth/token
 #            user-info-uri: https://kapi.kakao.com/v2/user/me
 #            user-name-attribute: id
-#
-#
-#
+
+
+
 oauth:
   jwt:
     secret:
-      6B64DCA4E72F58EDIKU9AAB215FE7
+      6B64DCA4E72F58EDIKU9AAB215FE7ASDACZWQEQWEQEQWE
   oauth2:
-      authorizedRedirectUri: "http://localhost:3000/oauth2/redirect"
+      authorizedRedirectUri: "http://localhost:8080/oauth2/redirect"

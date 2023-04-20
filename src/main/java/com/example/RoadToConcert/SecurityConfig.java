@@ -42,7 +42,7 @@ public class SecurityConfig {
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
     httpSecurity.authorizeRequests()
-        .antMatchers("/oauth2/**", "/login/**", "/", "/signup/**").permitAll()
+        .antMatchers("/oauth2/**", "/login/**", "/", "/signup/**" , "/actuator/**").permitAll()
         .anyRequest().authenticated();
 
     httpSecurity.oauth2Login()

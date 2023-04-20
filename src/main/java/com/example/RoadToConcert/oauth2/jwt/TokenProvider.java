@@ -73,7 +73,7 @@ public class TokenProvider {
     String refreshToken = Jwts.builder().claim("type", TYPE_REFRESH)
         .setIssuedAt(date)
         .setExpiration(new Date(date.getTime() + ExpireTime.REFRESH_TOKEN_EXPIRE_TIME))
-        .signWith(SignatureAlgorithm.ES256, key)
+        .signWith(SignatureAlgorithm.HS256, key)
         .compact();
 
     return MemberResponseDto.TokenInfo.builder()
