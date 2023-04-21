@@ -3,6 +3,18 @@ spring:
     active: dev
   config:
     import: optional:configserver:http://localhost:8088
+  application:
+    name: main
+server:
+  port: 8090
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://127.30.1.1:8761/eureka
+
 
 
 
@@ -28,7 +40,6 @@ spring:
   #    multipart:
   #      max-file-size: 50MB
   #      max-request-size: 50MB
-  #
   #  mail:
   #    host: smtp.gmail.com
   #    port: 587
@@ -54,18 +65,7 @@ spring:
 
 
 
-  #          kakao:
-#management:
-#  endpoint:
-#    web:
-#      exposure:
-#        include: "* , refresh"
-
-
-
-
-#    use-legacy-processing: true
-
+#          kakao:
 #            client-id:
 #            client-secret:
 #            scope:
@@ -79,9 +79,6 @@ spring:
 #            token-uri: https://kauth.kakao.com/oauth/token
 #            user-info-uri: https://kapi.kakao.com/v2/user/me
 #            user-name-attribute: id
-
-
-#
 #oauth:
 #  jwt:
 #    secret:
