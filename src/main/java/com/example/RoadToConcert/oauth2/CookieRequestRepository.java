@@ -37,13 +37,11 @@ public class CookieRequestRepository implements AuthorizationRequestRepository {
     CookieUtils.addCookie(response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME,
         CookieUtils.serialize(authorizationRequest), COOKIE_EXPIRE_SECONDS);
 
-    String parameter = request.getParameter(REDIRECT_URI_PARAM_COOKIE_NAME);
-    String redirectUriAfterLogin = parameter;
+    String redirectUriAfterLogin=request.getParameter(REDIRECT_URI_PARAM_COOKIE_NAME);
 
     if (StringUtils.isNotBlank(redirectUriAfterLogin)) {
       CookieUtils.addCookie(response, REDIRECT_URI_PARAM_COOKIE_NAME, redirectUriAfterLogin,
           COOKIE_EXPIRE_SECONDS);
-
     }
   }
 

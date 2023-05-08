@@ -1,12 +1,11 @@
 package com.example.RoadToConcert.oauth2.jwt;
-
-
 import static com.example.RoadToConcert.oauth2.CookieRequestRepository.REDIRECT_URI_PARAM_COOKIE_NAME;
-
 import com.example.RoadToConcert.oauth2.CookieRequestRepository;
 import com.example.RoadToConcert.oauth2.CookieUtils;
 import java.io.IOException;
 import java.net.URI;
+import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.Optional;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -28,7 +27,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
   @Value("${oauth.oauth2.authorizedRedirectUri}")
   private String redirectUri;
-  public final TokenProvider provider;
+  private final TokenProvider provider;
   private final CookieRequestRepository cookieRequestRepository;
 
 
@@ -45,8 +44,6 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
     clearAuthenticationAttributes(request, response);
     getRedirectStrategy().sendRedirect(request, response, targetUrl);
-
-
   }
 
   @Override
@@ -62,8 +59,17 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
     String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
 
-    MemberResponseDto.TokenInfo tokenInfo =
-        provider.generateToken(authentication);
+    String name = authentication.getName();
+
+    MemberResponseDto.TokenInfo tokenInfo = provider.generateToken(authentication);
+
+    Enumeration<String> headerNames = request.getHeaderNames();
+
+    Iterator<String> stringIterator = headerNames.asIterator();
+
+    for (Iterator<String> it = stringIterator; it.hasNext(); ) {
+      Object o = it.next();
+    }
 
     return UriComponentsBuilder.fromUriString(targetUrl)
         .queryParam("token", tokenInfo.getAccessToken())

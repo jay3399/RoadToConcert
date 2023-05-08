@@ -6,7 +6,6 @@ import lombok.Getter;
 
 public class MemberResponseDto {
 
-
   @Builder
   @Getter
   @AllArgsConstructor
@@ -20,9 +19,6 @@ public class MemberResponseDto {
     private String refreshToken;
 
     private Long refreshTokenExpirationTime;
-
-
-
 
 
   }

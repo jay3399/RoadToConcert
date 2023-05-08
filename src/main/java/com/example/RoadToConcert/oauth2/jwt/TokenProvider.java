@@ -1,7 +1,9 @@
 package com.example.RoadToConcert.oauth2.jwt;
 
 
+import com.example.RoadToConcert.oauth2.CustomOAuthMemberService;
 import com.example.RoadToConcert.oauth2.ExpireTime;
+import com.example.RoadToConcert.oauth2.UserPrincipal;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -14,7 +16,9 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -33,14 +37,17 @@ public class TokenProvider {
   private static final String AUTHORIZATION_HEADER = "Authorization";
   private static final String AUTHORITIES_KEY = "auth";
 
-  private static final String BEARER_TYPE = "Bearer";
+  public static final String BEARER_TYPE = "Bearer";
 
   private static final String TYPE_ACCESS = "access";
   private static final String TYPE_REFRESH = "refresh";
-
   private final String key;
 
-  public TokenProvider(@Value("${oauth.jwt.secret}") String secretKey) {
+
+  @Autowired
+  public TokenProvider(@Value("${oauth.jwt.secret}") String secretKey,
+      CustomOAuthMemberService customOAuthMemberService) {
+
 //    byte[] decode = Decoders.BASE64.decode(secretKey);
 //    this.key = Keys.hmacShaKeyFor(decode);
     this.key = Base64.getEncoder().encodeToString(secretKey.getBytes());
@@ -88,7 +95,7 @@ public class TokenProvider {
   }
 
   //토큰 복호화
-  // Access Token을 검사하고 얻은 정보로 Authentication 객체 생성
+  // Access Token을 검사하고 얻은 정보로 Authentication 객체 생성@@@@
   public Authentication getAuthentication(String accessToken) {
 
     Claims claims = parseClaims(accessToken);
@@ -104,12 +111,9 @@ public class TokenProvider {
             .map(SimpleGrantedAuthority::new)
             .collect(Collectors.toList());
 
-    UserDetails user = new User(claims.getSubject(), "", authorities);
+    UserPrincipal user = new UserPrincipal(Long.valueOf(claims.getSubject()), "", authorities);
 
     return new UsernamePasswordAuthenticationToken(user, "", authorities);
-
-
-
   }
 
 

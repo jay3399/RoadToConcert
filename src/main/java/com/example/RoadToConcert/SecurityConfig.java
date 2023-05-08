@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
@@ -18,9 +19,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @RequiredArgsConstructor
+@EnableWebSecurity
 public class SecurityConfig {
 
-  public final CustomOAuthMemberService customOAuthMemberService;
+  private final CustomOAuthMemberService customOAuthMemberService;
 
   private final CookieRequestRepository requestRepository;
   private final OAuth2SuccessHandler oAuth2SuccessHandler;
@@ -42,7 +44,7 @@ public class SecurityConfig {
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
     httpSecurity.authorizeRequests()
-        .antMatchers("/oauth2/**", "/login/**", "/", "/signup/**" , "/actuator/**").permitAll()
+        .antMatchers("/oauth2/**", "/actuator/**" ,"/").permitAll()
         .anyRequest().authenticated();
 
     httpSecurity.oauth2Login()
