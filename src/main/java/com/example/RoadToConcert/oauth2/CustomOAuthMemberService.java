@@ -27,6 +27,11 @@ public class CustomOAuthMemberService implements OAuth2UserService<OAuth2UserReq
 
     OAuth2User oAuth2User = defaultOAuth2UserService.loadUser(userRequest);
 
+    String name = oAuth2User.getName();
+
+    System.out.println("name = " + name);
+
+
     return getOAuth2User(userRequest, oAuth2User);
 
   }

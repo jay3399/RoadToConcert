@@ -53,6 +53,8 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     Optional<String> redirectUri = CookieUtils.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME)
         .map(Cookie::getValue);
 
+    System.out.println("redirectUri = " + redirectUri);
+
     if (redirectUri.isPresent() && !isAuthorizedRedirectUri(redirectUri.get())) {
       throw new RuntimeException("redirect Urls are not matched");
     }

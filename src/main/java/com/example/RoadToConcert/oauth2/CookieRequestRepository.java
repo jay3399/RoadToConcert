@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 
@@ -34,8 +35,10 @@ public class CookieRequestRepository implements AuthorizationRequestRepository {
       CookieUtils.deleteCookie(request, response, REDIRECT_URI_PARAM_COOKIE_NAME);
       return;
     }
-    CookieUtils.addCookie(response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME,
-        CookieUtils.serialize(authorizationRequest), COOKIE_EXPIRE_SECONDS);
+
+    System.out.println("쿠키추가");
+
+    CookieUtils.addCookie(response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME, CookieUtils.serialize(authorizationRequest), COOKIE_EXPIRE_SECONDS);
 
     String redirectUriAfterLogin=request.getParameter(REDIRECT_URI_PARAM_COOKIE_NAME);
 
