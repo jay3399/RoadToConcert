@@ -23,14 +23,14 @@ public class CustomOAuthMemberService implements OAuth2UserService<OAuth2UserReq
   @Override
   public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 
-    OAuth2UserService<OAuth2UserRequest, OAuth2User> defaultOAuth2UserService = new DefaultOAuth2UserService();
+    System.out.println("호출!!@!@!");
+
+    OAuth2UserService defaultOAuth2UserService = new DefaultOAuth2UserService();
 
     OAuth2User oAuth2User = defaultOAuth2UserService.loadUser(userRequest);
 
     String name = oAuth2User.getName();
-
     System.out.println("name = " + name);
-
 
     return getOAuth2User(userRequest, oAuth2User);
 
